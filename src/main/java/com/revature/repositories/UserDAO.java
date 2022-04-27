@@ -24,6 +24,7 @@ public class UserDAO {
      * Additional fields may be null.
      */
     public User create(User userToBeRegistered) {
+    
         return userToBeRegistered;
     }
 }
