@@ -6,25 +6,61 @@ package com.revature.models;
  *
  * Example fields:
  * <ul>
- *     <li>First Name</li>
- *     <li>Last Name</li>
- *     <li>Email</li>
- *     <li>Phone Number</li>
- *     <li>Address</li>
+ * <li>First Name</li>
+ * <li>Last Name</li>
+ * <li>Email</li>
+ * <li>Phone Number</li>
+ * <li>Address</li>
  * </ul>
  *
  */
 public class User extends AbstractUser {
 
-    public User() {
-        super();
+	private String firstname;
+	private String lastname;
+	private String email;
+
+	public User() {
+		super();
+	}
+
+	/**
+	 * This includes the minimum parameters needed for the
+	 * {@link com.revature.models.AbstractUser} class. If other fields are needed,
+	 * please create additional constructors.
+	 */
+	public User(int id, String username, String password, Role role) {
+		super(id, username, password, role);
+	}
+	
+	public User(int id, String username, String password, Role role, String firstname, String lastname, String email ) {
+		super(id, username, password, role);
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+	}
+	
+    public String getFirstname() {
+        return firstname;
     }
 
-    /**
-     * This includes the minimum parameters needed for the {@link com.revature.models.AbstractUser} class.
-     * If other fields are needed, please create additional constructors.
-     */
-    public User(int id, String username, String password, Role role) {
-        super(id, username, password, role);
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+    
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
