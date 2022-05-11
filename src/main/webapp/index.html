@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERS Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body class="container-fluid">
+  <div  class="row" id="login" name="login">
+      <div>
+        <h3>Employee Reimbursement System</h3>
+      </div>
+      <br>
+      <div class="row">
+        <label class="col-sm-3"  id="errormessage"	name="errormessage" style="color: red;"> </label>
+      </div>
+      <br>
+      <div class="row">
+        <label for="username" class="col-sm-3">Username: </label>
+        <input class="col-sm-3" type="text" id="username" name="username">
+      </div>
+      <br>
+      <div class="row">
+      <label for="password" class="col-sm-3">Password:</label>
+        <input class="col-sm-3" type="password" id="password" name="password">
+      </div>
+      <br>
+      <div class="row" style="width: min-content;">
+        <button id="btnLogin" name="btnLogin" class="btn btn-success" >Login</button>
+      </div><br>
+      <div class="row" style="width: min-content;">
+        <button id="btnRegister" name="btnRegister" class="btn btn-success">Register</button>
+      </div>
+    </div><br>
+
+    <div  class="row" id="manager" name="manager">
+      <div>
+        <h3>Reimbursement</h3>
+      </div>
+      <div class="row">
+          <label for="status" class="col-sm-3"> Select Status: </label> 
+          <select class="col-sm-3" id="status" required>
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="DENIED">Denied</option>
+          </select>
+        <button id="btnGetReimb" name="btnGetReimb" style="width: min-content;" class="btn btn-success">Get</button>
+      </div>
+      <br>
+    <div class="container" >
+      <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+          <th class="col-sm-1">Id</th>
+          <th class="col-sm-1">Amount</th>
+          <th class="col-sm-1">Type</th>
+          <th class="col-sm-2">Description</th>
+          <th class="col-sm-1">Date Submitted</th>
+          <th class="col-sm-1">Author</th>
+          <th class="col-sm-1">Date Resolved</th>
+          <th class="col-sm-1">Resolver</th>
+          <th class="col-sm-1">Status</th>
+        </tr>
+        </thead>
+        <tbody id="reimbListBody">
+    
+        </tbody>
+		  </table>
+	  </div>
+  
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

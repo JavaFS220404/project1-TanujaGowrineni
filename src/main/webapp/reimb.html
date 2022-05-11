@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+    <title>Reimbursement Form</title>
+</head>
+<body>
+    <div class="container" style="align-content: center;">
+
+        <div class="row">
+            <h3>Reimbursement</h3>
+        </div>
+        <br>
+        <div class="row">
+            <label class="col-sm-3"  id="errormessage"	name="errormessage" style="color: red;"> </label>
+        </div>
+        <br>
+        <div class="row">
+			<label for="reimbtype" class="col-sm-3"> Reimbursement Type: </label> 
+			<select class="col-sm-3" id="reimbtype" required>
+				<option value="LODGING">Lodging</option>
+				<option value="TRAVEL">Travel Manager</option>
+                <option value="FOOD" >Food</option>
+				<option value="OTHER">Other</option>
+			</select>
+		</div>
+        <br>
+		<div class="row">
+			<label for="amount" class="col-sm-3"> Reimbursement Amount: </label> 
+			<input class="col-sm-3" type="number" id="amount" name="amount" min="0.01" placeholder="0.00" 
+            onkeyup="if(this.value<0)this.value=1" onblur="if(this.value<0)this.value=1"/>
+		</div>
+		<br>
+		<div class="row">
+			<label class="col-sm-3" for= "description" > Description: </label> 
+			<textarea class="col-sm-3" type="text" name="description" id="description" maxlength="250"></textarea>
+        </textarea>
+		</div>
+		<br>
+	<!--<div class="row">
+			<label for="recipt" class="col-sm-3"> Upload Receipt: </label> 
+            <input class="col-sm-3" type="file" id="recipt" name="recipt">
+		</div>
+		<br> -->	
+		<div class="row">
+			<input type="button" value="Submit" id="submit"	 name="submit" class="btn btn-success col-sm-3" /> 
+			<input type="reset" value="Reset" id="reset" class="btn btn-success col-sm-3" />  
+				<a href="login.html" class="btn btn-success col-sm-3">Login</a>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="container-fluid" style="align-content: center;" >
+		<table class="table table-dark table-striped">
+		  <thead>
+			<tr>
+			  <th class="col-sm-1">Id</th>
+			  <th class="col-sm-1">Amount</th>
+			  <th class="col-sm-1">Type</th>
+			  <th class="col-sm-1">Description</th>
+			  <th class="col-sm-1">Date Submitted</th>
+			  <th class="col-sm-1">Author</th>
+			  <th class="col-sm-1">Date Resolved</th>
+			  <th class="col-sm-1">Resolver</th>
+			  <th class="col-sm-1">Status</th>
+			</tr>
+		  </thead>
+		  <tbody id="reimbListBody">
+	
+		  </tbody>
+		</table>
+	  </div>
+	
+	<script src="reimb.js"></script>
+</body>
+</html>
