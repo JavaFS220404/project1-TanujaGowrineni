@@ -52,7 +52,8 @@ public class ReimbursementServiceTest {
 	@Test
 	public void testProcessPassesWhenUserIsFinanceManagerAndReimbursementExistsAndUpdateSuccessful() {
 		when(reimbursementDAO.getById(anyInt())).thenReturn(Optional.of(GENERIC_REIMBURSEMENT_1));
-		when(reimbursementDAO.update(any())).thenReturn(GENERIC_REIMBURSEMENT_2);
+//		when(reimbursementDAO.update(any())).thenReturn(GENERIC_REIMBURSEMENT_2);
+		when(reimbursementDAO.update(any())).thenReturn(true);
 		
 		assertEquals(GENERIC_REIMBURSEMENT_2, reimbursementService.process(REIMBURSEMENT_TO_PROCESS, Status.APPROVED, GENERIC_FINANCE_MANAGER_1));
 		

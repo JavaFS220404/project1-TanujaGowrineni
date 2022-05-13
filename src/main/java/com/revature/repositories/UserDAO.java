@@ -1,6 +1,5 @@
 package com.revature.repositories;
 
-
 import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.util.ConnectionFactory;
@@ -37,14 +36,16 @@ public class UserDAO {
 				user.setPassword(result.getString("ers_password"));
 				user.setFirstname(result.getString("first_name"));
 				user.setLastname(result.getString("last_name"));
-				user.setEmail(result.getString("user_email"));
-				
+				user.setEmail(result.getString("user_email"));				
 				int role_id = result.getInt("user_role_id");
-				if (role_id == 1)
+				switch(role_id ){
+				case 1:
 					user.setRole(Role.EMPLOYEE);
-				else 
+					break;
+				case 2:
 					user.setRole(Role.FINANCE_MANAGER);
-				
+					break;
+				}
 				return Optional.of(user);
 			}
 			
@@ -54,6 +55,10 @@ public class UserDAO {
 		return  Optional.empty();
 
     }
+    
+    /*
+     * Should retrieve a User from the DB with the corresponding ID or an empty optional if there is no match.
+     */
     
     public Optional<User> getById(int userid) {
     	
@@ -90,6 +95,10 @@ public class UserDAO {
 		return Optional.empty();
 
     }
+    
+    /**
+     * Should retrieve a User from the DB with the corresponding Email or an empty optional if there is no match.
+     */
 
     public Optional<User> getByEmail(String email) {
     	
@@ -128,8 +137,7 @@ public class UserDAO {
     }
 
 
-
-    /**
+    /*
      * <ul>
      *     <li>Should Insert a new User record into the DB with the provided information.</li>
      *     <li>Should throw an exception if the creation is unsuccessful.</li>
@@ -139,8 +147,7 @@ public class UserDAO {
      * Note: The userToBeRegistered will have an id=0, and username and password will not be null.
      * Additional fields may be null.
      
-    public User create(User userToBeRegistered) {
-        return userToBeRegistered;*/
+    */
     
 
     public User create(User userToBeRegistered) {
@@ -148,7 +155,7 @@ public class UserDAO {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			String sql = "INSERT INTO ers_users (ers_username, ers_password, "
 					+ "first_name, last_name, user_email, user_role_id) "
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
+					+ "VALUES (?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			
@@ -166,7 +173,8 @@ public class UserDAO {
 				
 			statement.execute();
 			
-			return userToBeRegistered;
+			Optional<User> newUser = getByUsername(userToBeRegistered.getUsername());
+			return newUser.get();
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -174,6 +182,10 @@ public class UserDAO {
 		return null;
 	}
     
+    
+    /*
+     * Should retrieve List of all Users from the DB 
+     */
     
     public List<User> getAllUsers() {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
@@ -215,7 +227,7 @@ public class UserDAO {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			String sql = "UPDATE ers_users SET ers_username=?, ers_password=?, "
 					+ "first_name=?, last_name=?, user_email=?, user_role_id=? "
-					+ "WHERE ers_users_id = ?";
+					+ "WHERE ers_users_id = ?;";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			

@@ -25,7 +25,7 @@ import com.revature.repositories.UserDAO;
  */
 public class UserService {
 
-	UserDAO userDAO;
+	protected UserDAO userDAO = new UserDAO();
 
 	public UserService(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -68,36 +68,10 @@ public class UserService {
 		return false;
 	}
 
-	/*
-	 * <ul>
-	 * <li>Should Insert a new User record into the DB with the provided
-	 * information.</li>
-	 * <li>Should throw an exception if the creation is unsuccessful.</li>
-	 * <li>Should return a User object with an updated ID.</li>
-	 * </ul>
-	 *
-	 * Note: The userToBeRegistered will have an id=0, and username and password
-	 * will not be null. Additional fields may be null.
-	 */
-	public boolean createUser(String username, String password, String userrole, String firstname, String lastname,
-			String email) {
-		int userId = 0;
-
-		User user = null;
-		if (userrole.equals("EMPLOYEE"))
-			user = new User(userId, username, password, Role.EMPLOYEE, firstname, lastname, email);
-		else if (userrole.equals("FINANCE MANAGER"))
-			user = new User(userId, username, password, Role.FINANCE_MANAGER, firstname, lastname, email);
-
-		user = userDAO.create(user);
-		if (user != null) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean createUser(User user) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 }

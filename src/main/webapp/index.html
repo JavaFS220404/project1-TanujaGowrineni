@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Reimbursement System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+	div {
+	  	align-items: center;
+  		display: flex;
+  		justify-content: center;
+	}
+</style>
+</head>
+<body class="container-fluid">
+      <div class="row" >
+        <h4 style="padding: 2pt; margin: 3pt; text-align:center; margin: 10px;" >Employee Reimbursement System</h4> 
+          <label class="col-sm-3"  id="welcome"	name="welcome" style="color: blue; margin: 3pt; text-align: left;" > </label>
+          <button class="col-sm-3" id="logout"	name="logout" class="btn btn-info" style="margin: 3pt; width: 100px; align-self: left;" hidden="true">logout</label>
+      </div>
+      <br> 
+      <div class="row">
+        <label class="col-sm-3"  id="errormessage"	name="errormessage" style="color: red; padding: 2pt; margin: 3pt;" > </label>
+      </div>
+
+       <!-- Login Section  -->
+      <div  class="row" id="login" name="login" style=" width: 1000px; border: 1px; border-style: solid; margin-left: 120pt;">
+            <div>
+              <label for="username" class="col-sm-3" style="margin: 3pt;">Username: </label>
+              <input class="col-sm-3" type="text" id="username" name="username" style="margin: 3pt;">
+            </div>
+              <br>
+            <div>
+              <label for="password" class="col-sm-3" style="margin: 3pt;">Password:</label>
+              <input class="col-sm-3" type="password" id="password" name="password" style="margin: 3pt;">
+            </div>
+              <br>
+            <div>
+              <button id="btnLogin" name="btnLogin" class="btn btn-info col-sm-3" style="margin: 3pt;">Login</button>
+              <button id="btnRegister" name="btnRegister" class="btn btn-info col-sm-3" style="margin: 3pt;">Register</button> 
+            </div>
+    </div>
+
+    <!-- Reimbusement Add Section  -->
+    <div class="row" id="employee" name="employee" hidden="true"  style=" width: 1000px;
+       border: 1px; border-style: solid; margin-left: 120pt; margin-bottom: 10px;">
+          <div class="row">
+              <h4 style="text-align:center; margin: 5px;">Reimbursement Form</h4>
+          </div>
+            <br>
+            <div class="row" style="margin: 2px;">
+            <label for="reimbtype" class="col-sm-3"> Reimbursement Type: </label> 
+            <select class="col-sm-3" id="reimbtype" required>
+              <option value="LODGING">Lodging</option>
+              <option value="TRAVEL">Travel</option>
+              <option value="FOOD" >Food</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+            <br>
+          <div class="row"  style="margin: 2px;">
+            <label for="amount" class="col-sm-3" style="margin: 3px;"> Reimbursement Amount: </label> 
+            <input class="col-sm-3" type="number" id="amount" name="amount" min="0.01" placeholder="0.00" max="99999.99" 
+                  onkeyup="if(this.value<0)this.value=1" onblur="if(this.value<0)this.value=1" required/>
+          </div>
+          <br>
+          <div class="row"  style="margin: 2px;">
+            <label class="col-sm-3" for= "description" > Description: </label> 
+            <textarea class="col-sm-3" type="text" name="description" id="description" maxlength="250"></textarea>
+          </div>
+          <br>	
+          <div class="row"  style="margin: 3px;">
+            <input type="button" value="Submit Reimbursement" id="submit"	name="submit" style="margin-bottom: 10px;"class="btn btn-info col-sm-3" />  
+          </div>
+    </div>
+
+        <!-- Reimbusement view & Update Section  -->
+    <div  class="row" id="manager" name="manager"  hidden="true" 	style= "align-items: left; display: flex; justify-content: left;">   
+      <h5 class="col-sm-5" >View Reimbursement list:</h5>
+      <div class="row" id="statusctl" name="statusctl"  style="margin: 5px;">
+          <label for="status" class="col-sm-3"> Select Status: </label> 
+          <select class="col-sm-3" id="status" required>
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="DENIED">Denied</option>
+          </select>
+        
+        <button id="btnGetReimb" name="btnGetReimb" style="margin: 10px;" class="btn btn-info col-sm-3">Show Reimbusements</button>
+      </div>
+      <br>
+        <div class="container" id="reimbtable"  name="reimbtable" style="margin:5px;">
+          <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+              <th class="col-sm-1">Id</th>
+              <th class="col-sm-1">Amount</th>
+              <th class="col-sm-1">Type</th>
+              <th class="col-sm-2">Description</th>
+              <th class="col-sm-1">Date Submitted</th>
+              <th class="col-sm-1">Author</th>
+              <th class="col-sm-1">Date Resolved</th>
+              <th class="col-sm-1">Resolver</th>
+              <th class="col-sm-1">Status</th>
+            </tr>
+            </thead>
+            <tbody id="reimbListBody">
+        
+            </tbody>
+          </table>
+        </div>
+        <div class="row" id="updatectl"  name="updatectl" style= "align-items: left; display: flex; justify-content: left;">
+          <h5 class="col-sm-5">Update Reimbursement:</h5>
+          <div class="row" >
+            <label class="col-sm-2" for="reimbId">Enter Reimbursement Id:</label>
+            <input type="number" name="reimbId" id="reimbId" class="col-sm-2">
+            <label class="col-sm-2" for="reimbStatus">Select Status:</label>
+            <select name="reimbStatus" id="reimbStatus" class="col-sm-2">
+              <option value="APPROVED">Approved</option>
+              <option value="DENIED">Denied</option>
+            </select>
+          </div>
+          <br>
+          <div class="row"  style="margin: 3px;">
+          <button id="btnUpdate" name="btnUpdate" class="btn btn-info col-sm-3" style="margin: 3px ;">Update Status</button>
+          </div>
+        </div>
+    </div>
+    <div class="container" id="displayreimtable"  name="displayreimtable" hidden="true" style="margin:5px;">
+      <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+          <th class="col-sm-1">Id</th>
+          <th class="col-sm-1">Amount</th>
+          <th class="col-sm-1">Type</th>
+          <th class="col-sm-2">Description</th>
+          <th class="col-sm-1">Date Submitted</th>
+          <th class="col-sm-1">Author</th>
+          <th class="col-sm-1">Date Resolved</th>
+          <th class="col-sm-1">Resolver</th>
+          <th class="col-sm-1">Status</th>
+        </tr>
+        </thead>
+        <tbody id="reimBody">
+    
+        </tbody>
+      </table>
+    </div>
+    
+ <script src="index.js"></script>
+</body>
+</html>
